@@ -1,4 +1,4 @@
-Wasm Emscripten is from [https://github.com/GoogleChromeLabs/squoosh/](Google Sqoosh).
+Wasm Emscripten is from [Google Sqoosh](https://github.com/GoogleChromeLabs/squoosh/).
 Web assembly is running within Web Worker, folder name is image-processing-worker.
 
 First step, build Web Worker and wasm-emscripten (instruction below). This will copy the result to static/ folder.
