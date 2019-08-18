@@ -1,4 +1,3 @@
-const fs = require('fs');
 const webpack = require('webpack');
 const path = require('path');
 const config = require('sapper/config/webpack.js');
@@ -28,29 +27,11 @@ module.exports = {
 							hotReload: false // pending https://github.com/sveltejs/svelte/issues/2377
 						}
 					}
-				},
-        {
-          test: /\/wasm\/.*\.js$/,
-          loader: "exports-loader"
-        },
-        // The file-loader resolves import/require() on a file into a url and emits the file into the output directory.
-        {
-          test: /\/wasm\/.*\.wasm$/,
-          type: "javascript/auto",
-          loader: "file-loader",
-          options: {
-            name: '[name].[hash:5].[ext]',
-          },
-        }
+				}
 			]
 		},
 		mode,
 		plugins: [
-      // Ignore fs in /wasm folder
-      new webpack.IgnorePlugin(
-        /fs/,
-        /wasm$/
-      ),
 			// pending https://github.com/sveltejs/svelte/issues/2377
 			// dev && new webpack.HotModuleReplacementPlugin(),
 			new webpack.DefinePlugin({
@@ -79,20 +60,7 @@ module.exports = {
 							dev
 						}
 					}
-				},
-        {
-          test: /\/wasm\/.*\.js$/,
-          loader: "exports-loader"
-        },
-        // The file-loader resolves import/require() on a file into a url and emits the file into the output directory.
-        {
-          test: /\/wasm\/.*\.wasm$/,
-          type: "javascript/auto",
-          loader: "file-loader",
-          options: {
-            name: '[name].[hash:5].[ext]',
-          },
-        }
+				}
 			]
 		},
 		mode: process.env.NODE_ENV,
@@ -106,19 +74,4 @@ module.exports = {
 		output: config.serviceworker.output(),
 		mode: process.env.NODE_ENV
 	},
-  
-  node: {
-    console: false,
-    // Keep global, it's just an alias of window and used by many third party modules:
-    global: true,
-    // Turn off process to avoid bundling a nextTick implementation:
-    process: false,
-    // Inline __filename and __dirname values:
-    __filename: 'mock',
-    __dirname: 'mock',
-    // Never embed a portable implementation of Node's Buffer module:
-    Buffer: false,
-    // Never embed a setImmediate implementation:
-    setImmediate: false
-  },
 };
